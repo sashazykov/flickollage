@@ -32,4 +32,5 @@ end
 require 'flickollage/logger.rb'
 require 'flickollage/dictionary.rb'
 require 'flickollage/image.rb'
+require 'flickollage/collage.rb'
 require 'flickollage/cli.rb'
