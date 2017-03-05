@@ -14,7 +14,7 @@ module Flickollage
     def initialize(path_or_words)
       @words = []
       load_from_file(path_or_words) if path_or_words.is_a?(String)
-      @words = path_or_words if path_or_words.is_a?(Array)
+      @words = path_or_words.reverse if path_or_words.is_a?(Array)
     end
 
     def pop
@@ -22,7 +22,7 @@ module Flickollage
     end
 
     def append(words)
-      @words += words
+      @words += words.reverse
     end
 
     private

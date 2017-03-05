@@ -13,18 +13,17 @@ module Flickollage
     end
 
     def download
+      logger.debug("Downloading an image: #{url}")
       @image = MiniMagick::Image.open(url)
       file_not_found unless @image
       @image
     end
 
     def crop(width, height)
-      dimensions = image.dimensions
-      should_be_bigger = dimensions[0] < width || dimensions[1] < height
       image.combine_options do |b|
-        b.resize "#{width}x#{height}^" if should_be_bigger
+        b.resize "#{width}x#{height}^"
         b.gravity 'Center'
-        b.crop "#{width}x#{height}!+0+0"
+        b.extent "#{width}x#{height}"
       end
     end
 
@@ -38,6 +37,7 @@ module Flickollage
       photo = flickr.photos.search(tags: word, sort: 'interestingness-desc', per_page: 1)[0]
       raise Error, 'Could not find an image using this keyword' unless photo
       @url = FlickRaw.url_b(photo)
+      logger.debug("Found an image for keyword '#{word}': #{@url}")
     rescue FlickRaw::FailedResponse
       raise ::Flickollage::Error, 'Invalid Flickr API key'
     end

@@ -10,7 +10,7 @@ module Flickollage
       Flickollage.config = options
     end
 
-    def init_logger(options)
+    def init_logger(options = {})
       Flickollage.logger = ::Logger.new(STDOUT).tap do |logger|
         logger.level = options[:verbose] ? ::Logger::DEBUG : ::Logger::INFO
         logger.formatter = proc do |_severity, _datetime, _progname, msg|

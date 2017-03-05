@@ -12,7 +12,7 @@ module Flickollage
            type: :string, aliases: '-d', default: Dictionary.default_dict_path,
            desc: 'Path of the dictionatry file'
     option :output,
-           type: :string, aliases: '-o', default: 'collage.jpg',
+           type: :string, aliases: '-o', default: 'collage.png',
            desc: 'Output image file name'
     option :flickr_api_key,
            type: :string,
@@ -24,7 +24,7 @@ module Flickollage
     option :rows, type: :numeric, aliases: '-r', default: 5
     option :cols, type: :numeric, aliases: '-c', default: 2
     option :width, type: :numeric, aliases: '-w', default: 200
-    option :height, type: :numeric, aliases: '-h', default: 50
+    option :height, type: :numeric, aliases: '-h', default: 150
     option :verbose, type: :boolean, aliases: '-v'
     long_desc <<-LONGDESC
       `flickollage generate dolomites annapurna` will generate a photo collage.
@@ -36,9 +36,7 @@ module Flickollage
       Flickollage.init_logger(options)
       Flickollage.init_config(options)
       return unless Flickollage.configure_flickraw(options)
-      words.each do |word|
-        logger.info 'Found an image: ' + Image.new(word).url
-      end
+      Flickollage::Collage.new(words, options).generate_collage
     rescue Flickollage::Error => e
       logger.error(e.message)
       logger.debug(e.inspect)

@@ -44,7 +44,7 @@ describe Flickollage::Image do
       before(:each) do
         # mock Flickr request
         allow_any_instance_of(Flickollage::Image).to receive(:search_on_flickr)
-        expect(image).to receive(:url).and_return('https://farm1.staticflickr.com/758/not_found.jpg')
+        allow(image).to receive(:url).and_return('https://farm1.staticflickr.com/758/not_found.jpg')
       end
 
       it 'should raise en error' do

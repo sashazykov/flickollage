@@ -9,6 +9,8 @@ require 'rspec'
 require 'webmock/rspec'
 require 'vcr'
 
+Flickollage.init_logger
+
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 VCR.configure do |config|

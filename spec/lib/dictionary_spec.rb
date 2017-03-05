@@ -75,8 +75,8 @@ describe Flickollage::Dictionary do
 
     it 'should append words to the dictionary' do
       subject
-      expect(dictionary.pop).to eq 'banana'
       expect(dictionary.pop).to eq 'apple'
+      expect(dictionary.pop).to eq 'banana'
     end
   end
 
