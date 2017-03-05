@@ -5,7 +5,7 @@ a collage grid from ten top-rated images found on Flickr using the provided keyw
 
 ## Installation
 
-You can install Flickollage using from rubygems. It requires Ruby version >= 2.0 and
+You can install Flickollage from rubygems. It requires Ruby version >= 2.0 and
 ImageMagick or GraphicsMagick command-line tool.
 
     $ gem install flickollage
