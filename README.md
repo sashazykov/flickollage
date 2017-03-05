@@ -1,4 +1,4 @@
-# Flickollage [![Build Status](https://travis-ci.org/alexandrz/flickollage.svg?branch=master)](https://travis-ci.org/alexandrz/flickollage)
+# Flickollage [![Gem Version](https://badge.fury.io/rb/flickollage.svg)](https://badge.fury.io/rb/flickollage) [![Build Status](https://travis-ci.org/alexandrz/flickollage.svg?branch=master)](https://travis-ci.org/alexandrz/flickollage)
 
 A simple command-line tool that accepts a list of words as arguments and generates
 a collage grid from ten top-rated images found on Flickr using the provided keywords.
