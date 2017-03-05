@@ -8,10 +8,23 @@ module Flickollage
     include Logger
 
     desc 'generate [LIST OF WORDS]', 'Generate collage from the list of words'
-    option :dict, type: :string, aliases: '-d', default: Dictionary.default_dict_path
-    option :output, type: :string, aliases: '-o', default: 'collage.jpg'
-    option :flickr_api_key, type: :string
-    option :flickr_shared_secret, type: :string
+    option :dict,
+           type: :string, aliases: '-d', default: Dictionary.default_dict_path,
+           desc: 'Path of the dictionatry file'
+    option :output,
+           type: :string, aliases: '-o', default: 'collage.jpg',
+           desc: 'Output image file name'
+    option :flickr_api_key,
+           type: :string,
+           desc: 'Flickr API Key, can also be set using environment variable'
+    option :flickr_shared_secret,
+           type: :string,
+           desc: 'Flickr Shared Secret, can also be set using environment variable'
+    option :number, type: :numeric, aliases: '-n', default: 10
+    option :rows, type: :numeric, aliases: '-r', default: 5
+    option :cols, type: :numeric, aliases: '-c', default: 2
+    option :width, type: :numeric, aliases: '-w', default: 200
+    option :height, type: :numeric, aliases: '-h', default: 50
     option :verbose, type: :boolean, aliases: '-v'
     long_desc <<-LONGDESC
       `flickollage generate dolomites annapurna` will generate a photo collage.
