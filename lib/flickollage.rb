@@ -1,5 +1,5 @@
 require 'flickraw'
-require 'faraday'
+require 'mini_magick'
 
 module Flickollage
   class Error < StandardError; end

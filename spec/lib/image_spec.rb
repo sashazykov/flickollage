@@ -31,12 +31,12 @@ describe Flickollage::Image do
     end
   end
 
-  describe '#as_file' do
+  describe '#download' do
     let(:image) { described_class.new(word) }
-    let(:subject) { image.as_file }
-    it 'should return a file' do
+    let(:subject) { image.download }
+    it 'should return an mini magick object' do
       VCR.use_cassette('flickr_download') do
-        expect(subject).to be_a Tempfile
+        expect(subject).to be_a MiniMagick::Image
       end
     end
 
@@ -47,10 +47,31 @@ describe Flickollage::Image do
         expect(image).to receive(:url).and_return('https://farm1.staticflickr.com/758/not_found.jpg')
       end
 
-      it 'should return nil' do
+      it 'should raise en error' do
         VCR.use_cassette('flickr_download_not_found') do
           expect { subject }.to raise_error { Flickollage::Image::Error }
         end
+      end
+    end
+  end
+
+  describe '#crop' do
+    let(:image) { described_class.new(word).tap(&:download) }
+    let(:crop_size) { [150, 100] }
+    let(:subject) { image.crop(*crop_size) }
+    before(:each) do
+      VCR.use_cassette('flickr_download') do
+        image
+      end
+    end
+    it 'crops the image' do
+      expect { subject }.to change { image.image.dimensions }.to crop_size
+    end
+
+    context 'result is bigger that the source' do
+      let(:crop_size) { [1500, 1500] }
+      it 'makes the image bigger' do
+        expect { subject }.to change { image.image.dimensions }.to crop_size
       end
     end
   end

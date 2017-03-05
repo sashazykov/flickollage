@@ -5,32 +5,33 @@ module Flickollage
 
     attr_reader :word
     attr_reader :url
+    attr_accessor :image
 
     def initialize(word)
       @word = word
       search_on_flickr(word)
     end
 
-    def as_file
-      response = Faraday.get(url)
-      file_not_found unless response.success?
-      response_as_file(response)
+    def download
+      @image = MiniMagick::Image.open(url)
+      file_not_found unless @image
+      @image
+    end
+
+    def crop(width, height)
+      dimensions = image.dimensions
+      should_be_bigger = dimensions[0] < width || dimensions[1] < height
+      image.combine_options do |b|
+        b.resize "#{width}x#{height}^" if should_be_bigger
+        b.gravity 'Center'
+        b.crop "#{width}x#{height}!+0+0"
+      end
     end
 
     private
 
-    def response_as_file(response)
-      Tempfile.new(word).tap do |f|
-        f.binmode
-        f.write(response.body)
-        f.fsync
-        f.rewind
-      end
-    end
-
     def file_not_found
-      logger.debug(response.inspect)
-      raise Error, 'Image not found on a server'
+      raise Error, "Failed to load an image for keyword '#{word}'."
     end
 
     def search_on_flickr(word)
