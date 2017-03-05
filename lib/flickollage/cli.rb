@@ -4,19 +4,8 @@ require 'dotenv'
 # Flickollage Command Line Interface
 module Flickollage
   class CLI < ::Thor
-    class << self
-      COMMON_DICT_PATHS = %w(
-        /usr/share/dict/words
-        /usr/dict/words
-      ).freeze
-
-      def default_dict_path
-        COMMON_DICT_PATHS.find { |path| File.exist?(path) } || COMMON_DICT_PATHS.first
-      end
-    end
-
     desc 'generate [LIST OF WORDS]', 'Generate collage from the list of words'
-    option :dict, type: :string, aliases: '-d', default: default_dict_path
+    option :dict, type: :string, aliases: '-d', default: Dictionary.default_dict_path
     option :output, type: :string, aliases: '-o', default: 'collage.jpg'
     option :flickr_api_key, type: :string
     option :flickr_shared_secret, type: :string

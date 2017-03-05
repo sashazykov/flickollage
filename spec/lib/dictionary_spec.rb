@@ -20,6 +20,14 @@ describe Flickollage::Dictionary do
         expect(subject.words.size).to eq 5
       end
     end
+
+    context 'file not found' do
+      let(:path) { '/not/a/file' }
+
+      it 'raise an error' do
+        expect { subject }.to raise_error Flickollage::Dictionary::Error
+      end
+    end
   end
 
   describe '#words' do
@@ -47,6 +55,13 @@ describe Flickollage::Dictionary do
 
     it 'should remove a word from the dictionary' do
       expect { subject }.to change { dictionary.words.size }.by(-1)
+    end
+  end
+
+  describe '#default_dict_path' do
+    let(:subject) { described_class.default_dict_path }
+    it 'should return one of the common dict paths' do
+      expect(described_class::COMMON_DICT_PATHS).to include subject
     end
   end
 end
