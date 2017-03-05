@@ -1,0 +1,15 @@
+language: ruby
+
+rvm:
+  - 1.9.3
+  - 2.0
+  - 2.1
+  - 2.2
+
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev
+  - sudo apt-get install -qq graphicsmagick
+
+script:
+  - rspec
