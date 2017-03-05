@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name        = 'Flickolage'
-  s.version     = '0.0.1'
+  s.name        = 'flickollage'
+  s.version     = '0.0.2'
   s.date        = '2017-03-05'
   s.summary     = 'Flickollage Collage Generator'
   s.description = 'Flickollage is a simple command line tool for generating collages'

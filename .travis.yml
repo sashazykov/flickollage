@@ -1,10 +1,11 @@
 language: ruby
 
 rvm:
-  - 1.9.3
   - 2.0
   - 2.1
   - 2.2
+
+bundler_args: --with development --jobs=9 --retry=2
 
 before_script:
   - sudo apt-get update
