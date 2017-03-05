@@ -1,5 +1,6 @@
 module Flickollage
   class Image
+    include Logger
     class Error < ::Flickollage::Error; end
 
     attr_reader :word
@@ -12,7 +13,13 @@ module Flickollage
 
     def as_file
       response = Faraday.get(url)
-      return unless response.success?
+      file_not_found unless response.success?
+      response_as_file(response)
+    end
+
+    private
+
+    def response_as_file(response)
       Tempfile.new(word).tap do |f|
         f.binmode
         f.write(response.body)
@@ -21,7 +28,10 @@ module Flickollage
       end
     end
 
-    private
+    def file_not_found
+      logger.debug(response.inspect)
+      raise Error, 'Image not found on a server'
+    end
 
     def search_on_flickr(word)
       photo = flickr.photos.search(tags: word, sort: 'interestingness-desc', per_page: 1)[0]

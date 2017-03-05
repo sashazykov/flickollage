@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://farm1.staticflickr.com/758/not_found.jpg
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sun, 05 Mar 2017 12:13:42 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Photo-Farm:
+      - '1'
+      P3p:
+      - policyref="https://policies.yahoo.com/w3c/p3p.xml", CP="CAO DSP COR CUR ADM
+        DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAMi OTRi UNRi PUBi IND
+        PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC GOV"
+      X-Photo-Origin:
+      - bf1
+      Cache-Control:
+      - private, no-cache, must-revalidate
+      Expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      Pragma:
+      - no-cache
+      Last-Modified:
+      - Sat, 04 Mar 2017 18:32:59 GMT
+      Age:
+      - '0'
+      Via:
+      - http/1.1 pc-pool122.flickr.bf1.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1
+        cache112.flickr.ir2.yahoo.com (ApacheTrafficServer [cMsSf ])
+      Server:
+      - ATS
+      X-Photo-Farm-Guess:
+      - '1'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        pc-pool122.flickr.bf1 : 404
+    http_version: 
+  recorded_at: Sun, 05 Mar 2017 12:13:42 GMT
+recorded_with: VCR 2.9.2
