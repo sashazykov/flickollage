@@ -58,6 +58,18 @@ describe Flickollage::Dictionary do
     end
   end
 
+  describe '#append' do
+    let!(:dictionary) { described_class.new(path) }
+    let(:words) { %w(apple banana) }
+    let(:subject) { dictionary.append(words) }
+
+    it 'should append words to the dictionary' do
+      subject
+      expect(dictionary.word).to eq 'banana'
+      expect(dictionary.word).to eq 'apple'
+    end
+  end
+
   describe '#default_dict_path' do
     let(:subject) { described_class.default_dict_path }
     it 'should return one of the common dict paths' do

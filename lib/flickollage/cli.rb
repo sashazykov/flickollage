@@ -1,9 +1,12 @@
 require 'thor'
 require 'dotenv'
+require 'logger'
 
 # Flickollage Command Line Interface
 module Flickollage
   class CLI < ::Thor
+    include Logger
+
     desc 'generate [LIST OF WORDS]', 'Generate collage from the list of words'
     option :dict, type: :string, aliases: '-d', default: Dictionary.default_dict_path
     option :output, type: :string, aliases: '-o', default: 'collage.jpg'
@@ -17,19 +20,15 @@ module Flickollage
       or environment variables `FLICKR_API_KEY` and `FLICKR_SHARED_SECRET`.
     LONGDESC
     def generate(*words)
-      p words
-      Flickollage.config = options
-      return unless configure_flickraw(options)
-    end
-
-    no_commands do
-      def configure_flickraw(options)
-        FlickRaw.api_key = ENV['FLICKR_API_KEY'] || options[:flickr_api_key]
-        FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET'] || options[:flickr_shared_secret]
-        return true if FlickRaw.api_key && FlickRaw.shared_secret
-        puts 'Flickr configuration is not provided.'
-        false
+      Flickollage.init_logger(options)
+      Flickollage.init_config(options)
+      return unless Flickollage.configure_flickraw(options)
+      words.each do |word|
+        logger.info 'Found an image: ' + Image.new(word).url
       end
+    rescue Flickollage::Error => e
+      logger.error(e.message)
+      logger.debug(e.inspect)
     end
   end
 end

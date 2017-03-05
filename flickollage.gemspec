@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'thor', '~> 0.19'
-  s.add_dependency 'flickraw', '~> 0.9.9'
+  s.add_dependency 'flickraw', '~> 0.9'
+  s.add_dependency 'faraday', '~> 0.9'
 
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'dotenv'

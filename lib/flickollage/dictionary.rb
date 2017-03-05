@@ -1,13 +1,13 @@
 module Flickollage
   class Dictionary
+    class Error < ::Flickollage::Error; end
+
     MAX_DICT_LENGTH = 500_000
 
     COMMON_DICT_PATHS = %w(
       /usr/share/dict/words
       /usr/dict/words
     ).freeze
-
-    class Error < ::Flickollage::Error; end
 
     attr_reader :words
 
@@ -25,6 +25,10 @@ module Flickollage
 
     def word
       @words.pop
+    end
+
+    def append(words)
+      @words += words
     end
 
     class << self
