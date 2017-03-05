@@ -4,11 +4,7 @@ require 'mini_magick'
 module Flickollage
   class Error < StandardError; end
   class << self
-    attr_accessor :config, :logger
-
-    def init_config(options)
-      Flickollage.config = options
-    end
+    attr_accessor :logger
 
     def init_logger(options = {})
       Flickollage.logger = ::Logger.new(STDOUT).tap do |logger|
