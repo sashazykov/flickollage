@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'thor'
+require 'dotenv'
+require 'flickollage'
+
+Dotenv.load
+
+FlickollageCLI.start(ARGV)
