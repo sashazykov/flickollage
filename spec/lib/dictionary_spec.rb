@@ -5,27 +5,37 @@ describe Flickollage::Dictionary do
   let(:subject) { described_class.new(path) }
 
   describe '#initialize' do
-    it 'should load all words' do
-      expect(subject.words.size).to be > 20
-    end
+    context 'with file' do
+      it 'should load all words' do
+        expect(subject.words.size).to be > 20
+      end
 
-    it 'shuffles the dictionary' do
-      dictionary2 = described_class.new(path)
-      expect(subject.words).not_to eq dictionary2.words
-    end
+      it 'shuffles the dictionary' do
+        dictionary2 = described_class.new(path)
+        expect(subject.words).not_to eq dictionary2.words
+      end
 
-    context 'huge file' do
-      before(:each) { stub_const('Flickollage::Dictionary::MAX_DICT_LENGTH', 5) }
-      it 'limits dictionary size' do
-        expect(subject.words.size).to eq 5
+      context 'huge file' do
+        before(:each) { stub_const('Flickollage::Dictionary::MAX_DICT_LENGTH', 5) }
+        it 'limits dictionary size' do
+          expect(subject.words.size).to eq 5
+        end
+      end
+
+      context 'file not found' do
+        let(:path) { '/not/a/file' }
+
+        it 'raise an error' do
+          expect { subject }.to raise_error Flickollage::Dictionary::Error
+        end
       end
     end
 
-    context 'file not found' do
-      let(:path) { '/not/a/file' }
-
-      it 'raise an error' do
-        expect { subject }.to raise_error Flickollage::Dictionary::Error
+    context 'with list of words' do
+      let(:words) { %w(apples oranges) }
+      let(:subject) { described_class.new(words) }
+      it 'should load all words' do
+        expect(subject.words.size).to eq 2
       end
     end
   end
@@ -42,9 +52,9 @@ describe Flickollage::Dictionary do
     end
   end
 
-  describe '#word' do
+  describe '#pop' do
     let!(:dictionary) { described_class.new(path) }
-    let(:subject) { dictionary.word }
+    let(:subject) { dictionary.pop }
     it 'should return a random word' do
       expect(subject).not_to be_empty
     end
@@ -65,8 +75,8 @@ describe Flickollage::Dictionary do
 
     it 'should append words to the dictionary' do
       subject
-      expect(dictionary.word).to eq 'banana'
-      expect(dictionary.word).to eq 'apple'
+      expect(dictionary.pop).to eq 'banana'
+      expect(dictionary.pop).to eq 'apple'
     end
   end
 
