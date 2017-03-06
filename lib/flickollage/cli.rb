@@ -34,6 +34,7 @@ module Flickollage
     LONGDESC
     def generate(*words)
       Flickollage.init_logger(options)
+      validate_options(options)
       Flickollage.configure_flickraw(options)
       Flickollage::Collage.new(words, options).generate_collage
     rescue Flickollage::Error => e
@@ -41,6 +42,22 @@ module Flickollage
     end
 
     no_commands do
+      def validate_options(options)
+        validate_grid_layout(options)
+        validate_image_size(options)
+      end
+
+      def validate_grid_layout(options)
+        return unless options[:rows] * options[:cols] != options[:number]
+        raise Error,
+              'Number of photos should be equal to the number of places in a layout (rows * cols)'
+      end
+
+      def validate_image_size(options)
+        return unless options[:width] <= 0 || options[:height] <= 0
+        raise Error, 'Image width and height should be greater than 0'
+      end
+
       def print_error(e)
         logger.error("Error: #{e.message}")
         logger.debug(e.inspect)
