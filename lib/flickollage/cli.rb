@@ -10,27 +10,43 @@ module Flickollage
     desc 'generate [LIST OF WORDS]', 'Generate collage from the list of words'
     option :dict,
            type: :string, aliases: '-d', default: Dictionary.default_dict_path,
-           desc: 'Path of the dictionatry file'
+           desc: 'Path to a dictionatry file'
     option :output,
            type: :string, aliases: '-o', default: 'collage.png',
            desc: 'Output image file name'
     option :flickr_api_key,
            type: :string,
-           desc: 'Flickr API Key, can also be set using environment variable'
+           desc: 'Flickr API Key, it can also be set using environment variable'
     option :flickr_shared_secret,
            type: :string,
-           desc: 'Flickr Shared Secret, can also be set using environment variable'
-    option :number, type: :numeric, aliases: '-n', default: 10
-    option :rows, type: :numeric, aliases: '-r', default: 5
-    option :cols, type: :numeric, aliases: '-c', default: 2
-    option :width, type: :numeric, aliases: '-w', default: 200
-    option :height, type: :numeric, aliases: '-h', default: 150
-    option :verbose, type: :boolean, aliases: '-v'
+           desc: 'Flickr Shared Secret, it can also be set using environment variable'
+    option :number,
+           type: :numeric, aliases: '-n', default: 10,
+           desc: 'Number of photos to be composed into a collage'
+    option :rows,
+           type: :numeric, aliases: '-r', default: 5,
+           desc: 'Number of rows in a collage grid'
+    option :cols,
+           type: :numeric, aliases: '-c', default: 2,
+           desc: 'Number of columns in a collage grid'
+    option :width,
+           type: :numeric, aliases: '-w', default: 200,
+           desc: 'Width of a cell in a collage grid'
+    option :height,
+           type: :numeric, aliases: '-h', default: 150,
+           desc: 'Height of a cell in a collage grid'
+    option :verbose,
+           type: :boolean, aliases: '-v',
+           desc: 'Print debug information'
     long_desc <<-LONGDESC
-      `flickollage generate dolomites annapurna` will generate a photo collage.
+      `flickollage generate -n 2 --rows=1 --cols=2 Berlin 'New York'` will generate
+      a photo collage and save it to `collage.png` file.
 
-      You can provide flickr api key and shared secret using options described before
-      or environment variables `FLICKR_API_KEY` and `FLICKR_SHARED_SECRET`.
+      Flickollage accepts a list of words as argument and generates a collage grid
+      from top-rated images found on Flickr using the keywords provided.
+
+      You need to provide flickr api key and shared secret using options or via
+      environment variables `FLICKR_API_KEY` and `FLICKR_SHARED_SECRET`.
     LONGDESC
     def generate(*words)
       Flickollage.init_logger(options)
