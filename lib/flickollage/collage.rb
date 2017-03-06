@@ -20,14 +20,12 @@ module Flickollage
       crop_images(options[:width], options[:height])
     end
 
-    def generate_collage(path = nil)
-      path ||= options[:output]
+    def generate_collage(path = options[:output])
       MiniMagick::Tool::Montage.new do |montage|
         images.each { |image| montage << image.image.path }
 
         montage.geometry "#{options[:width]}x#{options[:height]}+0+0"
         montage.tile "#{options[:cols]}x#{options[:rows]}"
-        montage.background 'black'
 
         montage << path
       end
