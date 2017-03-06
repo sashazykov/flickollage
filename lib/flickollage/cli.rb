@@ -37,8 +37,14 @@ module Flickollage
       Flickollage.configure_flickraw(options)
       Flickollage::Collage.new(words, options).generate_collage
     rescue Flickollage::Error => e
-      logger.error(e.message)
-      logger.debug(e.inspect)
+      print_error(e)
+    end
+
+    no_commands do
+      def print_error(e)
+        logger.error("Error: #{e.message}")
+        logger.debug(e.inspect)
+      end
     end
   end
 end
