@@ -18,6 +18,10 @@ variables `FLICKR_API_KEY` and `FLICKR_SHARED_SECRET` or command-line options
 
 ## Usage
 
+    $ flickollage help generate
+
+It will describe all available options.
+
     $ flickollage generate -n 2 --rows=1 --cols=2 --width=300 --height=200 Berlin 'New York'
 
 ![Cities Collage](spec/fixtures/cities.png)
