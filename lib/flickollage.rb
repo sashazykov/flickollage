@@ -19,8 +19,7 @@ module Flickollage
       FlickRaw.api_key = ENV['FLICKR_API_KEY'] || options[:flickr_api_key]
       FlickRaw.shared_secret = ENV['FLICKR_SHARED_SECRET'] || options[:flickr_shared_secret]
       return true if FlickRaw.api_key && FlickRaw.shared_secret
-      logger.error 'Flickr configuration is not provided.'
-      false
+      raise Error, 'Flickr configuration is not provided.'
     end
   end
 end

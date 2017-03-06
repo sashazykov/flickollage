@@ -34,7 +34,7 @@ module Flickollage
     LONGDESC
     def generate(*words)
       Flickollage.init_logger(options)
-      return unless Flickollage.configure_flickraw(options)
+      Flickollage.configure_flickraw(options)
       Flickollage::Collage.new(words, options).generate_collage
     rescue Flickollage::Error => e
       logger.error(e.message)
