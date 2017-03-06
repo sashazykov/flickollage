@@ -14,7 +14,7 @@ ImageMagick or GraphicsMagick command-line tool.
 
 You need to provide Flickr access key and shared secret. It can be done using environment
 variables `FLICKR_API_KEY` and `FLICKR_SHARED_SECRET` or command-line options
-`--flickr-api-key` and `--flickr-shared-key`.
+`--flickr-api-key` and `--flickr-shared-secret`.
 
 ## Usage
 
